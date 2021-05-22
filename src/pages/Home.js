@@ -47,28 +47,28 @@ export default function Home({ navigation }) {
         <View style={styles.container}>
             <StatusBar backgroundColor={colors.bgWhite} barStyle="dark-content" />
             <View style={styles.head}>
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    {
-                        dataUser &&
+                {
+                    dataUser &&
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}>
                         <View style={styles.boxImage}>
                             <Image source={{ uri: dataUser.avatar_url }}
                                 style={styles.image}
                             />
                         </View>
-                    }
-                    <View style={{
-                        marginLeft: wp(3),
-                    }}>
-                        <Text style={{
-                            fontSize: sizeFont(4),
-                            fontFamily: fonts.Medium,
-                        }}>{dataUser.name}</Text>
-                        <Text>{dataUser.login}</Text>
+                        <View style={{
+                            marginLeft: wp(3),
+                        }}>
+                            <Text style={{
+                                fontSize: sizeFont(4),
+                                fontFamily: fonts.Medium,
+                            }}>{dataUser.name}</Text>
+                            <Text>{dataUser.login}</Text>
+                        </View>
                     </View>
-                </View>
+                }
                 <View>
                     <ButtonD
                         onPress={() => navigation.navigate('Profile')}

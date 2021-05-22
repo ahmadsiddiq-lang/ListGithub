@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback, useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { colors } from '../assets/colors';
 import { fonts } from '../assets/fonts';
 import { hp, sizeFont, wp } from '../assets/responsive';
@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ navigation }) {
     const dataUser = useSelector(state => state.user.dataUser);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const [follower, setFollower] = useState(null);
     const [following, setFollowing] = useState(null);
@@ -46,60 +47,60 @@ export default function Profile({ navigation }) {
                     />
                 </TouchableHighlight>
             </View>
-            <View style={styles.info}>
-                {
-                    dataUser &&
+            {
+                dataUser &&
+                <View style={styles.info}>
                     <View style={styles.boxImage}>
                         <Image source={{ uri: dataUser.avatar_url }}
                             style={styles.image}
                         />
                     </View>
-                }
-                <View style={{
-                    marginTop: hp(2),
-                    alignItems: 'center',
-                }}>
-                    <Text style={{
-                        fontSize: sizeFont(5),
-                        fontFamily: fonts.Medium,
-                    }}>{dataUser.name}</Text>
-                    <Text>{dataUser.login}</Text>
-                </View>
-                <View style={{
-                    flexDirection: 'row',
-                    marginTop: hp(3),
-                }}>
-                    <View style={[styles.boxFollow, {
-                        marginRight: wp(8),
-                    }]}>
+                    <View style={{
+                        marginTop: hp(2),
+                        alignItems: 'center',
+                    }}>
                         <Text style={{
-                            fontSize: sizeFont(4),
-                            color: colors.fontBlack1,
-                        }}>followers</Text>
-                        <Text style={{
-                            fontSize: sizeFont(4.3),
+                            fontSize: sizeFont(5),
                             fontFamily: fonts.Medium,
-                        }}>{follower ? follower.length : '0'}</Text>
+                        }}>{dataUser.name}</Text>
+                        <Text>{dataUser.login}</Text>
                     </View>
-                    <View style={styles.boxFollow}>
-                        <Text style={{
-                            fontSize: sizeFont(4),
-                            color: colors.fontBlack1,
-                        }}>followings</Text>
-                        <Text style={{
-                            fontSize: sizeFont(4.3),
-                            fontFamily: fonts.Medium,
-                        }}>{following ? following.length : '0'}</Text>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginTop: hp(3),
+                    }}>
+                        <View style={[styles.boxFollow, {
+                            marginRight: wp(8),
+                        }]}>
+                            <Text style={{
+                                fontSize: sizeFont(4),
+                                color: colors.fontBlack1,
+                            }}>followers</Text>
+                            <Text style={{
+                                fontSize: sizeFont(4.3),
+                                fontFamily: fonts.Medium,
+                            }}>{follower ? follower.length : '0'}</Text>
+                        </View>
+                        <View style={styles.boxFollow}>
+                            <Text style={{
+                                fontSize: sizeFont(4),
+                                color: colors.fontBlack1,
+                            }}>followings</Text>
+                            <Text style={{
+                                fontSize: sizeFont(4.3),
+                                fontFamily: fonts.Medium,
+                            }}>{following ? following.length : '0'}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
+            }
             <View style={{
                 marginHorizontal: wp(5),
                 marginTop: hp(8),
                 flex: 1,
             }}>
                 <ButtonD
-                    onPress={() => clearData()}
+                    onPress={() => setModalVisible(!modalVisible)}
                 >Keluar</ButtonD>
             </View>
             <View style={{
@@ -113,6 +114,71 @@ export default function Profile({ navigation }) {
                 </View>
                 <Text>@copyright 2021 | ahmad siddiq</Text>
             </View>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.2)',
+                    justifyContent: 'center',
+                }}>
+                    <View style={{
+                        backgroundColor: colors.bgWhite,
+                        marginHorizontal: wp(10),
+                        borderRadius: 5,
+                    }}>
+                        <Text style={{
+                            marginVertical: hp(2),
+                            marginLeft: wp(5),
+                            fontSize: sizeFont(4.5),
+                        }}>Yakin ingin Keluar ?</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                        }}>
+                            <TouchableHighlight
+                                underlayColor={colors.bgBlack4}
+                                style={{
+                                    borderTopWidth: 0.5,
+                                    borderRightWidth: 0.5,
+                                    borderColor: colors.border1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: wp(3),
+                                    flex: 1,
+                                }}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={{
+                                    fontSize: sizeFont(4.5),
+                                }}>Tidak</Text>
+                            </TouchableHighlight>
+                            <TouchableHighlight
+                                underlayColor={colors.bgBlack4}
+                                style={{
+                                    borderTopWidth: 0.5,
+                                    borderColor: colors.border1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: wp(3),
+                                    flex: 1,
+                                }}
+                                onPress={() => clearData()}
+                            >
+                                <Text style={{
+                                    fontSize: sizeFont(4.5),
+                                    color: colors.seconMain,
+                                }}>Ya</Text>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }

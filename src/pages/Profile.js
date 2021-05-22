@@ -1,48 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { colors } from '../assets/colors';
 import { fonts } from '../assets/fonts';
 import { hp, sizeFont, wp } from '../assets/responsive';
 import ButtonD from '../components/ButtonD';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-const dataUser = {
-    'login': 'ahmadsiddiq-lang',
-    'id': 60493382,
-    'node_id': 'MDQ6VXNlcjYwNDkzMzgy',
-    'avatar_url': 'https://avatars.githubusercontent.com/u/60493382?v=4',
-    'gravatar_id': '',
-    'url': 'https://api.github.com/users/ahmadsiddiq-lang',
-    'html_url': 'https://github.com/ahmadsiddiq-lang',
-    'followers_url': 'https://api.github.com/users/ahmadsiddiq-lang/followers',
-    'following_url': 'https://api.github.com/users/ahmadsiddiq-lang/following{/other_user}',
-    'gists_url': 'https://api.github.com/users/ahmadsiddiq-lang/gists{/gist_id}',
-    'starred_url': 'https://api.github.com/users/ahmadsiddiq-lang/starred{/owner}{/repo}',
-    'subscriptions_url': 'https://api.github.com/users/ahmadsiddiq-lang/subscriptions',
-    'organizations_url': 'https://api.github.com/users/ahmadsiddiq-lang/orgs',
-    'repos_url': 'https://api.github.com/users/ahmadsiddiq-lang/repos',
-    'events_url': 'https://api.github.com/users/ahmadsiddiq-lang/events{/privacy}',
-    'received_events_url': 'https://api.github.com/users/ahmadsiddiq-lang/received_events',
-    'type': 'User',
-    'site_admin': false,
-    'name': 'Ahmad Siddiq',
-    'company': null,
-    'blog': '',
-    'location': null,
-    'email': null,
-    'hireable': null,
-    'bio': null,
-    'twitter_username': null,
-    'public_repos': 13,
-    'public_gists': 0,
-    'followers': 7,
-    'following': 8,
-    'created_at': '2020-01-31T01:00:09Z',
-    'updated_at': '2021-05-21T06:38:44Z',
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { clear } from '../redux/action/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ navigation }) {
+    const dataUser = useSelector(state => state.user.dataUser);
+
+    const dispatch = useDispatch();
+
+    const clearData = useCallback(async () => {
+        dispatch(clear());
+        await AsyncStorage.clear();
+        navigation.replace('Input');
+    }, [dispatch, navigation]);
+
     return (
         <View style={styles.container}>
             <View>
@@ -106,7 +84,7 @@ export default function Profile({ navigation }) {
                 flex: 1,
             }}>
                 <ButtonD
-                // onPress={() => navigation.navigate('Profile')}
+                    onPress={() => clearData()}
                 >Keluar</ButtonD>
             </View>
             <View style={{

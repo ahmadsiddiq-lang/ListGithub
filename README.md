@@ -30,9 +30,9 @@ Git List is a mobile application that lists the repositories from github.com. Th
 ## Screen
 
 <p align="center">
- <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-1.jpg" width="280" />
-  <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-2.jpg" width="280" />
-  <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-3.jpg" width="280" />
+ <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-1.jpg" width="280" style="margin-right:10px" />
+ <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-2.jpg" width="280" style="margin-right:10px" />
+ <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/dem-3.jpg" width="280" />
 </p>
 
 ## How To Install

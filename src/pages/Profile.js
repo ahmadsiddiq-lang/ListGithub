@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { colors } from '../assets/colors';
 import { fonts } from '../assets/fonts';
@@ -7,13 +7,25 @@ import { hp, sizeFont, wp } from '../assets/responsive';
 import ButtonD from '../components/ButtonD';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { clear } from '../redux/action/user';
+import { clear, hitFollowers, hitFollowing } from '../redux/action/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ navigation }) {
     const dataUser = useSelector(state => state.user.dataUser);
 
+    const [follower, setFollower] = useState(null);
+    const [following, setFollowing] = useState(null);
+
     const dispatch = useDispatch();
+
+    const getFollow = useCallback(() => {
+        dispatch(hitFollowers(setFollower));
+        dispatch(hitFollowing(setFollowing));
+    }, [dispatch]);
+
+    useEffect(() => {
+        getFollow();
+    }, [getFollow]);
 
     const clearData = useCallback(async () => {
         dispatch(clear());
@@ -35,11 +47,14 @@ export default function Profile({ navigation }) {
                 </TouchableHighlight>
             </View>
             <View style={styles.info}>
-                <View style={styles.boxImage}>
-                    <Image source={{ uri: dataUser.avatar_url }}
-                        style={styles.image}
-                    />
-                </View>
+                {
+                    dataUser &&
+                    <View style={styles.boxImage}>
+                        <Image source={{ uri: dataUser.avatar_url }}
+                            style={styles.image}
+                        />
+                    </View>
+                }
                 <View style={{
                     marginTop: hp(2),
                     alignItems: 'center',
@@ -47,8 +62,8 @@ export default function Profile({ navigation }) {
                     <Text style={{
                         fontSize: sizeFont(5),
                         fontFamily: fonts.Medium,
-                    }}>Ahmad Siddiq</Text>
-                    <Text>ahmadsiddiq-lang</Text>
+                    }}>{dataUser.name}</Text>
+                    <Text>{dataUser.login}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -64,7 +79,7 @@ export default function Profile({ navigation }) {
                         <Text style={{
                             fontSize: sizeFont(4.3),
                             fontFamily: fonts.Medium,
-                        }}>12</Text>
+                        }}>{follower ? follower.length : '0'}</Text>
                     </View>
                     <View style={styles.boxFollow}>
                         <Text style={{
@@ -74,7 +89,7 @@ export default function Profile({ navigation }) {
                         <Text style={{
                             fontSize: sizeFont(4.3),
                             fontFamily: fonts.Medium,
-                        }}>12</Text>
+                        }}>{following ? following.length : '0'}</Text>
                     </View>
                 </View>
             </View>

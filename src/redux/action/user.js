@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { BSE_URL } from '../../config/URL';
 
@@ -39,5 +40,28 @@ export const clear = () => {
         dispatch({
             type: CLEAR,
         });
+    };
+};
+
+export const hitFollowers = (setFollower) => {
+    return async () => {
+        const username = await AsyncStorage.getItem('username');
+        await axios.get(BSE_URL + username + '/followers')
+            .then(response => {
+                setFollower(response.data);
+            }).catch(err => {
+                console.log(err.response);
+            });
+    };
+};
+export const hitFollowing = (setFollowing) => {
+    return async () => {
+        const username = await AsyncStorage.getItem('username');
+        await axios.get(BSE_URL + username + '/following')
+            .then(response => {
+                setFollowing(response.data);
+            }).catch(err => {
+                console.log(err.response);
+            });
     };
 };

@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 function MainNavigation() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Input" headerMode="none">
+            <Stack.Navigator initialRouteName="Auth" headerMode="none">
                 <Stack.Screen name="Auth" component={Auth} />
                 <Stack.Screen name="Input" component={Input} />
                 <Stack.Screen name="Home" component={Home} />

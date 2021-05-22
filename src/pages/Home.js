@@ -51,11 +51,14 @@ export default function Home({ navigation }) {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}>
-                    <View style={styles.boxImage}>
-                        <Image source={{ uri: dataUser.avatar_url }}
-                            style={styles.image}
-                        />
-                    </View>
+                    {
+                        dataUser &&
+                        <View style={styles.boxImage}>
+                            <Image source={{ uri: dataUser.avatar_url }}
+                                style={styles.image}
+                            />
+                        </View>
+                    }
                     <View style={{
                         marginLeft: wp(3),
                     }}>

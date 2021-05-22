@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/ahmadsiddiq-lang/gochat/blob/master/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="200">
+  <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="200">
   <br>
   List Repository Github
   <br>
@@ -30,7 +30,9 @@ Git List is a mobile application that lists the repositories from github.com. Th
 ## Screen
 
 <p align="center">
- <img src="https://github.com/ahmadsiddiq-lang/gochat/blob/master/src/asset/login%5B1%5D.gif" width="280" />
+ <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-1.jpg" width="280" />
+  <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-2.jpg" width="280" />
+  <img src="https://github.com/ahmadsiddiq-lang/ListGithub/blob/master/src/assets/images/demo-3.jpg" width="280" />
 </p>
 
 ## How To Install
